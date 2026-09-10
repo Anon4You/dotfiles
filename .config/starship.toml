@@ -1,0 +1,109 @@
+# =============================================================================
+#  Copyright (c) Anon4You - https://github.com/Anon4You/dotfiles
+#  Starship prompt configuration
+#
+#  This is the main layout of the prompt. Each line is a module that gets
+#  rendered in order:
+#    $username   -> the current user (bold, top-left corner)
+#    $directory  -> current folder path
+#    $git_branch -> git branch name (inside a git repo only)
+#    $git_status -> git working-tree status symbols
+#    $time       -> current time
+#    $character  -> the prompt symbol (bottom line)
+# =============================================================================
+format = """
+[╭](bold overlay1)$username\
+$directory\
+$git_branch\
+$git_status\
+$time\
+\n$character\
+"""
+
+# =============Visuals================
+# The whole theme is a green monochrome ("greendream") palette.
+# To change theme colors, just edit the hex values below.
+palette = 'greendream'
+
+[palettes.greendream]
+text      = '#b8ffb8'      # soft green
+overlay1  = '#1a2a1a'      # dark greenish background
+color_fg0 = '#b8ffb8'
+color_bg0 = '#0a140a'
+color_bg1 = '#0f1a0f'
+color_bg3 = '#1a2a1a'
+color_blue   = '#5eff6c'   # green
+color_aqua   = '#6cff8c'   # lighter green
+color_green  = '#5eff6c'   # primary green
+color_orange = '#8cff5e'   # lime green
+color_red    = '#5eff6c'   # green (no red)
+color_yellow = '#b8ff5e'   # green-yellow
+color_pink   = '#5eff6c'   # green
+red = '#8cff5e'            # replaced red with green
+
+# =============Modules================
+
+[username]
+show_always = true
+style_user = "fg:text bold"
+style_root = "fg:green bold"      # root in bright green
+# If you do NOT want to show the default user ($user) in the prompt,
+# change $user to your own name, e.g.:
+#   format = '[ kirishn ]($style)'
+format = '[ $user ]($style)'
+
+[os]
+disabled = false
+style = "fg:color_green bold"     # green OS symbol
+format = "([ $symbol ]($style))"
+
+[os.symbols]
+Windows = ""
+Ubuntu = ""
+Debian = ""
+Arch = ""
+Manjaro = ""
+Linux = ""
+Macos = ""
+Unknown = ""
+Android = "ø"
+
+[directory]
+style = "fg:color_green bold"     # green directory path
+format = '(\[in [$path]($style)\])'
+truncation_length = 2
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music"     = " "
+"Pictures"  = " "
+
+[git_branch]
+format = '-\[[$symbol$branch](fg:color_green bold)'   # green branch
+
+[git_status]
+stashed = '\$'
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+conflicted = '='
+deleted = '✘'
+renamed = '»'
+modified = '!'
+staged = '+'
+untracked = '?'
+format = '([ $all_status$ahead_behind](fg:color_green bold))\]'   # green status symbols
+
+[time]
+disabled = false
+time_format = "%R"
+style = "fg:color_green"          # green time
+format = ' [$time]($style)'
+
+[character]
+format = """
+[╰─$symbol](fg:overlay1) """
+success_symbol = '[](fg:color_green bold)'   # green prompt symbol
+error_symbol   = '[](fg:red bold)'           # keep red for errors (or change to dark green if you prefer)
